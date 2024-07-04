@@ -1,4 +1,4 @@
-# C-Proxy 🛣️
+# CProxy 🛣️
 ## A simple way to root customs domains to any 🐳 Docker services
 
 ### 💿 Use it :
