@@ -1,0 +1,42 @@
+version: '3'
+services:
+  traefik:
+    image: traefik:v2.5
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=docker@erwan.delirer.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "./.letsencrypt:/letsencrypt"
+    networks:
+      - web
+
+  webserver1:
+    image: jwilder/whoami
+    labels:
+      - "traefik.http.routers.pay.rule=Host(`my.webserver1.wow`)"
+      - "traefik.http.routers.pay.entrypoints=websecure"
+      - "traefik.http.routers.pay.tls.certresolver=myresolver"
+    networks:
+      - web
+
+  webserver2:
+    image: jwilder/whoami
+    labels:
+      - "traefik.http.routers.cpg.rule=Host(`my.webserver2.wow`)"
+      - "traefik.http.routers.cpg.entrypoints=websecure"
+      - "traefik.http.routers.cpg.tls.certresolver=myresolver"
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
