@@ -59,6 +59,9 @@ main() {
     # Supprimer les entrées précédemment générées
     remove_previous_entries
 
+    # Supprimer les anciens certificats
+    rm -rf ./.letsencrypt
+
     # Ajouter les nouveaux marqueurs de début
     echo "$START_MARKER $PROJECT_PATH" | sudo tee -a "$HOSTS_FILE" > /dev/null
 

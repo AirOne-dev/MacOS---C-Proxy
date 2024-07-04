@@ -22,18 +22,18 @@ services:
   webserver1:
     image: jwilder/whoami
     labels:
-      - "traefik.http.routers.pay.rule=Host(`my-webserver1.wow`)"
-      - "traefik.http.routers.pay.entrypoints=websecure"
-      - "traefik.http.routers.pay.tls.certresolver=myresolver"
+      - "traefik.http.routers.webserver1.rule=Host(`my-webserver1.wow`)"
+      - "traefik.http.routers.webserver1.entrypoints=websecure"
+      - "traefik.http.routers.webserver1.tls.certresolver=myresolver"
     networks:
       - web
 
   webserver2:
     image: jwilder/whoami
     labels:
-      - "traefik.http.routers.cpg.rule=Host(`my-webserver2.wow`)"
-      - "traefik.http.routers.cpg.entrypoints=websecure"
-      - "traefik.http.routers.cpg.tls.certresolver=myresolver"
+      - "traefik.http.routers.webserver2.rule=Host(`my-webserver2.wow`)"
+      - "traefik.http.routers.webserver2.entrypoints=websecure"
+      - "traefik.http.routers.webserver2.tls.certresolver=myresolver"
     networks:
       - web
 
